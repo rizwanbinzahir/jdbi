@@ -392,6 +392,23 @@ class KotlinMapperTest {
         }
     }
 
+    data class DataClassWithSingleAnnotation
+    @JdbiConstructor
+    constructor (val id : Int, val first : String, val second : String, val third : String)
+
+    @Test
+    fun testDataClass() {
+        oneTwoThreeFourSetup()
+
+        val result = handle.createQuery(oneTwoThreeFourQuery)
+            .mapTo<DataClassWithSingleAnnotation>()
+            .first()
+
+        assertThat(result.first).isEqualTo(one)
+        assertThat(result.second).isEqualTo(two)
+        assertThat(result.third).isEqualTo(three)
+    }
+
     enum class KotlinTestEnum {
         A,B,C
     }
