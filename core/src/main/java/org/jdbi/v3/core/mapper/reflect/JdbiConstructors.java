@@ -44,6 +44,7 @@ public class JdbiConstructors {
 
         List<Constructor<T>> explicitConstructors = Stream.of(constructors)
             .filter(constructor -> constructor.isAnnotationPresent(JdbiConstructor.class))
+//            .filter(constructor -> !constructor.isSynthetic())
             .collect(Collectors.toList());
 
         List<Method> explicitFactoryMethods = Stream.of(type.getDeclaredMethods())
@@ -77,6 +78,7 @@ public class JdbiConstructors {
 
         List<Constructor<T>> annotatedConstructors = Stream.of(constructors)
                 .filter(c -> c.isAnnotationPresent(JdbiConstructor.class))
+//                .filter(constructor -> !constructor.isSynthetic())
                 .collect(Collectors.toList());
 
         if (annotatedConstructors.size() > 1) {
